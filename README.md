@@ -10,7 +10,6 @@ There is lots of information, I decided to split it into different MarkDown file
 
 [1]: res/read/Generics.md
 [2]: res/read/Enumerations.md
----
 <br/>
 
 
