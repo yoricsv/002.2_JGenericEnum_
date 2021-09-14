@@ -63,6 +63,34 @@ public class Generics
     }
 }
 
-class Vehicle
-{
-}
+// GENERIC CLASS (Adjustable)                                       // GENERIC CLASS AFTER COMPILING:
+class Vehicle <T>                                                   //class Vehicle
+{                                                                   //{
+    T t;                                                            //    Object object;
+                                                                    //
+    public T getType()                                              //    public Object getType()
+    {                                                               //    }
+        return t;                                                   //        return object;
+    }                                                               //    }
+                                                                    //
+    public void setType(T t)                                        //    public void setType(Object Object)
+    {                                                               //    {
+        this.t = t;                                                 //        this.object = Object;
+    }                                                               //    }
+}                                                                   //}
+
+// GENERIC CLASS AFTER COMPILING:
+//class Vehicle
+//{
+//    Object object;
+//
+//    public Object getType()
+//    {
+//        return object;
+//    }
+//
+//    public void setType(Object Object)
+//    {
+//        this.object = Object;
+//    }
+//}
