@@ -5,33 +5,41 @@ public class Generics
 {
     public static void main(String... args)
     {
-        // WITHOUT GENERICS
-        List    carSpareParts = new ArrayList();               // There was created an Object!
-        Vehicle carDodge      = new Vehicle();
+        String  downCastMsg = "DOWN-CAST",
+                genericMsg  = "GENERICS",
+                headerMsg   = "\n---------------------------------\n\t\tUSED THE ",
+                footerMsg   = "\n---------------------------------\nYou've chosen the following: \n",
+                header;
 
+        // WITHOUT GENERICS
+        List    carSpareParts = new ArrayList();                    // There was created an Object!
+        Vehicle carDodge      = new Vehicle();
 
         carSpareParts.add("Engine");
         carSpareParts.add("Tires");
         carSpareParts.add("Brakes");
         carSpareParts.add("Body");
         carSpareParts.add("Exhaust system");
-        carSpareParts.add(carDodge);
+        //carSpareParts.add(carDodge);                              // CALL ERROR: Cast Exception!!!
 
+        header = headerMsg + downCastMsg + footerMsg;
 
-        // String carSparePart = carSpareParts.get(3);          // ERROR: Different types!!!
-        // String dodgeSP      = (String) carSpareParts.get(5); // ERROR: Cast Exception!!!
-        String carSparePart = (String) carSpareParts.get(3);    // DOWN-CASTING to solve the first problem
+        for ( int i = 0;
+                  i < carSpareParts.size();
+                  i++)
+        {
+            // String carSparePart = carSpareParts.get(3);          // ERROR: Different types!!!
+            // String dodgeSP      = (String) carSpareParts.get(5); // ERROR: Cast Exception!!!
+            String carSparePart = (String) carSpareParts.get(i);    // DOWN-CASTING to solve the first problem
 
-        System.out.println(
-                "\n---------------------------------"       +
-                "\n\t\tUSED THE DOWN-CAST"                  +
-                "\n---------------------------------"       +
-                "\nYou have chosen the following part: \n"  +
-                carSparePart                                    // Output: Body
-        );
+            if(i == 0)
+                System.out.println(header + "- " + carSparePart);   // Output: Engine
+            else
+                System.out.println("- " + carSparePart);            // Output: Engine, Tires, ... etc.
+        }
 
-
-        List<String> carSPs = new ArrayList<>();                // USE GENERICS
+        // USING GENERICS
+        List<String> carSPs = new ArrayList<>();                    // GENERIC
 
         carSPs.add("Engine");
         carSPs.add("Tires");
@@ -39,15 +47,19 @@ public class Generics
         carSPs.add("Body");
         carSPs.add("Exhaust system");
 
-        String carSP = carSPs.get(4);
+        header = headerMsg + genericMsg + footerMsg;
 
-        System.out.println(
-                "\n---------------------------------"   +
-                "\n\t\tUSED THE GENERICS"               +
-                "\n---------------------------------"   +
-                "\nYou've chosen the following: \n"     +
-                carSP                                           // Output: Exhaust system
-        );
+        for ( int i = 0;
+                  i < carSPs.size();
+                  i++)
+        {
+            String carSP = carSPs.get(i);
+
+            if(i == 0)
+                System.out.println(header + "- " + carSP);          // Output: Engine
+            else
+                System.out.println("- " + carSP);                   // Output: Engine, Tires, ... etc.
+        }
     }
 }
 
