@@ -13,16 +13,6 @@ The Topics are split into different MarkDown files.<br/>
 <br/>
 
 
-
-
-
-
-
-
-
-
-
-
 <!--
 #### Syntax:
 ```java
@@ -33,11 +23,4 @@ The Topics are split into different MarkDown files.<br/>
 ```java
 
 ```
-
-* [templates in C++][1]
 -->
-
-[1]: http://geeksquiz.com/templates-cpp/
-
----
-<br/>
