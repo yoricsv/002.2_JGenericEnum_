@@ -7,13 +7,10 @@ Enums are used when we know all possible values at compile time, such as choices
 In Java (from 1.5), enums are represented using enum data type. Java enums are more powerful than [C/C++ enums][1]. In Java, we can also add variables, methods and constructors to it. The main objective of enum is to define our own data types (Enumerated Data Types).
 
 ### **Declaration of enum in Java:**  
-* Enum declaration can be done outside a Class or inside a Class but not inside a Method. 
+* Enum declaration can be done *outside a Class* or *inside a Class* but **not inside a Method**. 
 
-#### Example:
+#### Example (Out of class declaration):
 ```java
-// A simple enum example where enum is declared
-// outside any class (Note enum keyword instead of
-// class keyword)
 enum Color
 {
     RED, GREEN, BLUE;
@@ -21,18 +18,16 @@ enum Color
  
 public class Test
 {
-    // Driver method
-    public static void main(String[] args)
+    public static void main(String... args)
     {
-        Color c1 = Color.RED;
-        System.out.println(c1); // Output: RED
+        Color cObj = Color.GREEN;
+        System.out.println(cObj);                       // Output: GREEN
     }
 }
 ```
 
-#### Example:
+#### Example (Inside a class declaration):
 ```java
-// enum declaration inside a class.
 public class Test
 {
     enum Color
@@ -40,88 +35,94 @@ public class Test
         RED, GREEN, BLUE;
     }
  
-    // Driver method
-    public static void main(String[] args)
+    public static void main(String... args)
     {
-        Color c1 = Color.RED;
-        System.out.println(c1); // Output: RED
+        Color cObj = Color.BLUE;
+        System.out.println(cObj);                       // Output: BLUE
     }
 }
 ```
 
-* The first line inside the enum should be a list of constants and then other things like methods, variables and constructors.
-* According to [Java naming conventions][2], it is recommended that we name constant with all capital letters
-
+* **The first line** inside the enum **should be a list of constants** and then other things like methods, variables and constructors.
+* According to [Java naming conventions][2], it is recommended that we name **CONSTANT** with **all capital letters**
 
 ### **Important points of enum:**  
 * Every enum is internally implemented by using Class.
 
-#### Syntax:
+#### Syntax (internally implementation):
 ```java
-/* internally above enum Color is converted to
 class Color
 {
-     public static final Color RED = new Color();
-     public static final Color BLUE = new Color();
+     public static final Color RED   = new Color();     // Object of TYPE ENUM
+     public static final Color BLUE  = new Color();
      public static final Color GREEN = new Color();
-}*/
+}
 ```
 
-* Every enum constant represents an object of type enum.
-* enum type can be passed as an argument to switch statement. 
+* Every enum constant represents an object of **type enum**.
+* Enum type **can be passed** as an argument to switch statement. 
 
 #### Example:
 ```java
-// A Java program to demonstrate working on enum
-// in switch case (Filename Test. Java)
-import java.util.Scanner;
- 
-// An Enum class
-enum Day
+enum Day                                                // Class Day is ENUM Class
 {
-    SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
-    THURSDAY, FRIDAY, SATURDAY;
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY;
 }
- 
-// Driver class that contains an object of "day" and
-// main().
+
 public class Test
 {
     Day day;
- 
-    // Constructor
-    public Test(Day day)
+
+    public Test (Day day)                               // CONSTRUCTOR 
     {
         this.day = day;
     }
  
-    // Prints a line about Day using switch
-    public void dayIsLike()
+    public void dayIsToday()
     {
-        switch (day)
+        switch(day)
         {
-        case MONDAY:
-            System.out.println("Mondays are bad."); // Output: Mondays are bad.
-            break;
-        case FRIDAY:
-            System.out.println("Fridays are better.");
-            break;
-        case SATURDAY:
-        case SUNDAY:
-            System.out.println("Weekends are best.");
-            break;
-        default:
-            System.out.println("Midweek days are so-so.");
-            break;
+            case MONDAY:
+                System.out.println("Today is Monday."); // Output: Today is Monday.
+                break;
+            case TUESDAY:
+                System.out.println("Today is Tuesday.");
+                break;
+            case WEDNESDAY:
+                System.out.println("Today is Wednesday.");
+                break;
+            case THURSDAY:
+                System.out.println("Today is Thursday.");
+                break;
+            case FRIDAY:
+                System.out.println("Today is Friday.");
+                break;
+            case SATURDAY:
+                System.out.println("Today is Saturday.");
+                break;
+            case SUNDAY:
+                System.out.println("Today is Sunday.");
+                break;
+            default:
+                System.out.println(
+                    "There is something wrong. " +
+                    "Please, try again."
+                );
         }
     }
  
-    // Driver method
-    public static void main(String[] args)
+    public static void main(String... args)
     {
         String str = "MONDAY";
+
         Test t1 = new Test(Day.valueOf(str));
-        t1.dayIsLike();
+        t1.dayIsToday();
     }
 }
 ```
@@ -131,17 +132,16 @@ We can declare the **main() method** inside the enum. Hence we can invoke enum d
 
 #### Example:
 ```java
-// A Java program to demonstrate that we can have
-// main() inside enum class.
 enum Color
 {
-    RED, GREEN, BLUE;
- 
-    // Driver method
-    public static void main(String[] args)
+    RED,
+    GREEN,
+    BLUE;
+
+    public static void main(String... args)             // ENTRY POINT inside EMUN Class
     {
-        Color c1 = Color.RED;
-        System.out.println(c1); // Output: RED
+        Color cObj = Color.RED;
+        System.out.println(cObj);                       // Output: RED
     }
 }
 ```
@@ -154,46 +154,56 @@ enum Color
 <br/>
 
 ## values(), ordinal() and valueOf() methods:
-* These methods are present inside **java.lang.Enum.**
-* **values() method** can be used to return all values present inside enum.
-* Order is important in enums.By using **ordinal() method**, each enum constant index can be found, just like array index.
-* **valueOf() method** returns the enum constant of the specified string value, if exists.
+These methods are present inside *java.lang.Enum.*
+* **values()** method can be used to return all values present inside enum.
+* **ordinal()** method can find each index of enum constant, just like array index. 
+* **valueOf()** method returns the enum constant of the specified string value, if exists.
 
 #### Example:
 ```java
-// Java program to demonstrate working of values(),
-// ordinal() and valueOf()
 enum Color
 {
-    RED, GREEN, BLUE;
+    RED,
+    GREEN,
+    BLUE;
 }
  
 public class Test
 {
-    public static void main(String[] args)
+    public static void main(String... args)
     {
-        // Calling values()
-        Color arr[] = Color.values();
- 
-        // enum with loop
-        for (Color col : arr)
+/*
+    *****************************************
+    * values() returns the names of enum    *
+    *****************************************
+*/
+        Color[] arr = Color.values();
+
+        for (Color enumName : arr)
         {
-            // Calling ordinal() to find index
-            // of color.
-            System.out.println(col + " at index "
-                             + col.ordinal() // Output: RED at index 0
-                             // Output: GREEN at index 1
-                             // Output: BLUE at index 2
-                             );
+/*
+    *****************************************
+    * ordinal() returns the index of enum   *
+    *****************************************
+*/
+            System.out.println(
+                enumName            +                   // Output: RED at index 0
+                " at index "        +                   // Output: GREEN at index 1
+                enumName.ordinal()                      // Output: BLUE at index 2
+            );
         }
- 
-        // Using valueOf(). Returns an object of
-        // Color with given constant.
-        // Uncommenting second line causes exception
-        // IllegalArgumentException
-        System.out.println(Color.valueOf("RED")
-        );  // Output: RED
-        // System.out.println(Color.valueOf("WHITE"));
+/*
+    *****************************************
+    * valueOf() - returns a constant object *
+    *****************************************
+*/
+        System.out.println(
+            Color.valueOf("RED")                        // Output: RED
+        );
+
+        // System.out.println(
+        //    Color.valueOf("WHITE")                    // ERROR: IllegalArgumentException
+        //);
     }
 }
 ```
@@ -208,44 +218,44 @@ public class Test
 
 #### Example:
 ```java
-// Java program to demonstrate that enums can have constructor
-// and concrete methods.
- 
-// An enum (Note enum keyword inplace of class keyword)
 enum Color
 {
-    RED, GREEN, BLUE;
- 
-    // enum constructor called separately for each
-    // constant
-    private Color()
+    RED,
+    GREEN,
+    BLUE;
+ /*
+    *************************************************************
+    * REQUIREMENTS FOR THE ENUM CLASS:                          *
+    *                                                           *
+    *   - Use the keyword "enum" insted "class"                 *
+    *   - The constructor ALWAYS have to be PRIVATE!!!          *
+    *   - The constructor called SEPARATELY for each constant   *
+    *************************************************************
+*/
+    private Color()                                     // PRIVATE ENUM CONSTRUCTOR
     {
-        System.out.println("Constructor called for : " +
-        this.toString());
+        System.out.println(
+            "Constructor called for : " +               // Output: Constructor called for : RED
+            this.toString()                             // Output: Constructor called for : GREEN
+        );                                              // Output: Constructor called for : BLUE
     }
  
     public void colorInfo()
     {
-        System.out.println("Universal Color");
+        System.out.println(
+            "Universal Color"                           // Output: Universal Color
+        );
     }
 }
 
-/*      OUTPUT:
-Constructor called for : RED
-Constructor called for : GREEN
-Constructor called for : BLUE
-RED
-Universal Color
-*/
- 
 public class Test
 {   
-    // Driver method
-    public static void main(String[] args)
+    public static void main(String... args)
     {
-        Color c1 = Color.RED;
-        System.out.println(c1);
-        c1.colorInfo();
+        Color cObj = Color.RED;
+        System.out.println(cobj);                       // Output: RED
+
+        cObj.colorInfo();
     }
 }
 ```
@@ -257,9 +267,9 @@ By default enums have their own string values, we can also assign some custom va
 ```java
 enum  Fruits
 {
-    APPLE (“RED”),
-    BANANA(“YELLOW”),
-    GRAPES(“GREEN”);
+    APPLE ("RED"),
+    BANANA("YELLOW"),
+    GRAPES("GREEN");
 }
 ```
 
@@ -272,51 +282,37 @@ In above example we can see that the Fruits enum have three members i.e APPLE, B
 
 #### Example:
 ```java
-// Java program to demonstrate how values can
-// be assigned to enums.
 enum TrafficSignal
 {
-    // This will call enum constructor with one
-    // String argument
-    RED("STOP"), GREEN("GO"), ORANGE("SLOW DOWN");
-  
-    // declaring private variable for getting values
-    private String action;
-  
-    // getter method
-    public String getAction()
-    {
-        return this.action;
-    }
-  
-    // enum constructor - cannot be public or protected
-    private TrafficSignal(String action)
+    RED     ("STOP"),                                   // Assigning via the ENUM CONSTRUCTOR
+    ORANGE  ("WAIT"),
+    GREEN   ("GO"); 
+
+    private String action;                              // PRIVATE VARIABLE FOR PASSING VALUE
+ 
+    private TrafficSignal(String action)                // PRIVATE ENUM CONSTRUCTOR
     {
         this.action = action;
     }
-}
-  
-/*         OUTPUT:
-* name : RED action: STOP
-* name : GREEN action: GO 
-* name : ORANGE action: SLOW DOWN 
-*/
 
-
-// Driver code
-public class EnumConstructorExample
-{
-    public static void main(String args[])
+    public String getAction()                           // GETTER
     {
-        // let's print name of each enum and there action
-        // - Enum values() examples
+        return this.action;
+    }
+}
+
+public class EnumConstructor
+{
+    public static void main(String... args)
+    {
         TrafficSignal[] signals = TrafficSignal.values();
   
         for (TrafficSignal signal : signals)
         {
-            // use getter method to get the value
-            System.out.println("name : " + signal.name() +
-                        " action: " + signal.getAction() );
+            System.out.println(                         // Output: Signal is: RED, action is: STOP
+                "Signal is: "    + signal.name()      + // Output: Signal is: ORANGE, action is: WAIT
+                ", action is : " + signal.getAction()   // Output: Signal is: GREEN, action is: GO
+            );
         }
     }
 }

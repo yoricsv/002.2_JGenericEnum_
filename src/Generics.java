@@ -30,6 +30,7 @@ public class Generics
         {
             // String carSparePart = carSpareParts.get(3);          // ERROR: Different types!!!
             // String dodgeSP      = (String) carSpareParts.get(5); // ERROR: Cast Exception!!!
+
             String carSparePart = (String) carSpareParts.get(i);    // DOWN-CASTING to solve the first problem
 
             if(i == 0)
@@ -63,34 +64,36 @@ public class Generics
     }
 }
 
-// GENERIC CLASS (Adjustable)                                       // GENERIC CLASS AFTER COMPILING:
-class Vehicle <T>                                                   //class Vehicle
-{                                                                   //{
-    T t;                                                            //    Object object;
-                                                                    //
-    public T getType()                                              //    public Object getType()
-    {                                                               //    }
-        return t;                                                   //        return object;
-    }                                                               //    }
-                                                                    //
-    public void setType(T t)                                        //    public void setType(Object Object)
-    {                                                               //    {
-        this.t = t;                                                 //        this.object = Object;
-    }                                                               //    }
-}                                                                   //}
+class Vehicle <T>                                                   // GENERIC CLASS (Adjustable)
+{
+    T obj;
 
-// GENERIC CLASS AFTER COMPILING:
-//class Vehicle
-//{
-//    Object object;
-//
-//    public Object getType()
-//    {
-//        return object;
-//    }
-//
-//    public void setType(Object Object)
-//    {
-//        this.object = Object;
-//    }
-//}
+    Vehicle ()                                                      // DEFAULT CONSTRUCTOR
+    {
+    }
+
+    Vehicle (T obj)                                                 // CONSTRUCTOR
+    {
+        this.obj = obj;
+    }
+
+    public T getObject()                                            // GENERIC METHOD
+    {
+        return this.obj;
+    }
+
+    public T getType()                                              // GENERIC METHOD
+    {
+        return obj;
+    }
+
+    public void setType(T obj)                                      // GENERIC METHOD
+    {
+        this.obj = obj;
+    }
+
+    public void print()                                             // GENERIC METHOD
+    {
+        System.out.println(obj);
+    }
+}

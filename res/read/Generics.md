@@ -1,10 +1,10 @@
 # <p align=center><b>Generics in Java</b></p>
 
-**Generics** mean **parameterized types**. The idea is to allow type (*Integer*, *String*, … *etc*, and *user-defined* types) to be a parameter to methods, classes, and interfaces. Using Generics, it is possible to create classes that work with different data types. 
+**Generics** mean **parameterized types**. The idea is to allow type (*Integer*, *String*, … *etc*, and *user-defined* types) to be a parameter to methods, classes, and interfaces. Using Generics, it is possible to create classes that work with different data types.<br/> 
 An entity such as class, interface, or method that operates on a parameterized type is called a generic entity.
 
 ### Why Generics?
-The **Object** is the superclass of all other classes and Object reference can refer to any type object. These features lack type safety. Generics add that type safety feature. We will discuss that type of safety feature in later examples.
+The **Object** is the superclass of all other classes and Object reference can refer to any type object. These features lack type safety. Generics add that type safety feature. 
 <br/>
 Generics in Java is similar to [templates in C++][1]. For example, classes like HashSet, ArrayList, HashMap, etc use generics very well. There are some fundamental differences between the two approaches to generic types. 
  
@@ -13,37 +13,39 @@ Like C++, we use <> to specify parameter types in generic class creation. To cre
 
 #### Syntax:
 ```java
-// To create an instance of generic class 
-BaseType <Type> obj = new BaseType <Type>()
-
-Note: In Parameter type we can not use primitives like 
-      'int','char' or 'double'.
+BaseType <Type> obj = new BaseType <Type>();    // DECLARING AND INSTANCING 
 ```
+
+> *Note:* In Parameter *\<type\>* we CAN'T USE primitives like *'int'*,*'char'* or *'double'*.<br/>
+> Since Java 7, there is no need to specify the right side parameter *\<type\>*
 
 #### Example:
 ```java
-// We use < > to specify Parameter type
-class Test<T>
+class Test<T>                                   // type specified by <T>
 {
-    // An object of type T is declared
-    T obj;
-    Test(T obj) {  this.obj = obj;  }  // constructor
-    public T getObject()  { return this.obj; }
+    T obj;                                      // type T object declaring
+
+    Test(T obj)                                 // CONSTRUCTOR
+    {
+        this.obj = obj;
+    }
+    public T getObject()                        // GENERIC METHOD
+    {
+        return this.obj;
+    }
 }
    
-// Driver class to test above
 class Main
 {
-    public static void main (String[] args)
+    public static void main (String... args)    // DRIVER
     {
-        // instance of Integer type
-        Test <Integer> iObj = new Test<Integer>(15);
-        System.out.println(iObj.getObject());   // Output: GeeksForGeeks
-   
-        // instance of String type
-        Test <String> sObj =
-                          new Test<String>("GeeksForGeeks");
-        System.out.println(sObj.getObject());   // Output: GeeksForGeeks
+        Test <String>  sObj = 
+            new Test<String>("Hello, World!");  // String type
+        Test <Integer> iObj = 
+            new Test<Integer>(255);             // Integer type
+
+        System.out.println(iObj.getObject());   // Output: 255
+        System.out.println(sObj.getObject());   // Output: Hello, World!
     }
 }
 ```
@@ -52,34 +54,30 @@ We can also pass multiple Type parameters in Generic classes.
 
 #### Example:
 ```java
-// We use < > to specify Parameter type
-class Test<T, U>
+class Test<T, U>                                // type specify by <T, U>
 {
-    T obj1;  // An object of type T
-    U obj2;  // An object of type U
-  
-    // constructor
-    Test(T obj1, U obj2)
+    T obj1;                                     // type T object declaring
+    U obj2;                                     // type U object declaring
+
+    Test(T obj1, U obj2)                        // CONSTRUCTOR
     {
         this.obj1 = obj1;
         this.obj2 = obj2;
     }
   
-    // To print objects of T and U
     public void print()
     {
-        System.out.println(obj1); // Output: GeeksForGeeks
-        System.out.println(obj2); // Output: 15
+        System.out.println(obj1);               // Output: Hello, World!
+        System.out.println(obj2);               // Output: 255
     }
 }
-  
-// Driver class to test above
+ 
 class Main
 {
-    public static void main (String[] args)
+    public static void main (String... args)    // DRIVER
     {
         Test <String, Integer> obj =
-            new Test<String, Integer>("GfG", 15);
+            new Test <String, Integer> ("Hello, World!", 255);
   
         obj.print();
     }
@@ -93,43 +91,41 @@ We can also write generic functions that can be called with different types of a
 ```java
 class Test
 {
-    // A Generic method example
-    static <T> void genericDisplay (T element)
+    static <T> void genericDisp (T element)     // GENERIC METHOD
     {
-        System.out.println(element.getClass().getName() +
-                           " = " + element);
+        System.out.println(
+            element
+                .getClass()
+                .getName() +
+            " = "          +
+            element
+        );
     }
-   
-    // Driver method
-    public static void main(String[] args)
+
+    public static void main(String... args)     // DRIVER
     {
-         // Calling generic method with Integer argument
-        genericDisplay(11);     // Output: 11
-   
-        // Calling generic method with String argument
-        genericDisplay("GeeksForGeeks");    // Output: GeeksForGeeks
-   
-        // Calling generic method with double argument
-        genericDisplay(1.0);    // Output: 1.0
+        genericDisp(50);                        // Output: java.lang.Integer = 50
+        genericDisp(12.4);                      // Output: java.lang.Double = 12.4
+        genericDisp("Hello, world!");           // Output: java.lang.String = Hello, world!
     }
 }
 ```
 
 ## Generics work only with Reference Types: 
-When we declare an instance of a generic type, the type argument passed to the type parameter must be a reference type. We cannot use primitive data types like int, char.
+When we declare an instance of a generic type, the type argument passed to the type parameter must be a reference type. We can't use primitive data types like int, char.
 
 #### Syntax:
 ```java
-Test<int> obj = new Test<int>(20);
+Test<int> obj = new Test<int>(10);              // ERROR: Compile-time error!
 ```
 
 The above line results in a compile-time error, that can be resolved by using type wrappers to encapsulate a primitive type. 
 
-But primitive type array can be passed to the type parameter because arrays are reference type.
+But primitive *type array* can **be passed** to the type parameter because **arrays are reference type**.
 
 #### Syntax:
 ```java
-ArrayList<int[]> a = new ArrayList<>();
+ArrayList<int[]> a = new ArrayList<>();         // Everything OK!
 ```
 
 ### **Generic Types Differ Based on Their Type Arguments:**
@@ -139,27 +135,31 @@ Consider the following Java code.
 ```java
 class Test<T>
 {
-    // An object of type T is declared
     T obj;
-    Test(T obj) {  this.obj = obj;  }  // constructor
-    public T getObject()  { return this.obj; }
+
+    Test(T obj)
+    {
+        this.obj = obj;
+    }
+
+    public T getObject()
+    {
+        return this.obj;
+    }
 }
-   
-// Driver class to test above
+
 class Main
 {
-    public static void main (String[] args)
+   public static void main (String... args)
     {
-        // instance of Integer type
-        Test <Integer> iObj = new Test<Integer>(15);  
-        System.out.println(iObj.getObject());
-   
-        // instance of String type
-        Test <String> sObj =
-                          new Test<String>("GeeksForGeeks");
-        System.out.println(sObj.getObject());
-        iObj = sObj; // Output: error: incompatible types:
- Test cannot be converted to Test   
+        Test <String>  sObj = new Test<String>("Hello, World!");
+        Test <Integer> iObj = new Test<Integer>(255);
+
+        System.out.println(iObj.getObject());   // Output: 255
+        System.out.println(sObj.getObject());   // Output: Hello, World!
+
+        iObj = sObj;                            // ERROR: incompatible types:
+                                                //        Test can't be converted to Test
     }
 }
 ```
@@ -175,27 +175,22 @@ Programs that use Generics has got many benefits over non-generic code.
 
 #### Example:
 ```java
-// generics can cause run time exceptions
-import java.util.*;
+import java.util.ArrayList;
   
 class Test
 {
-    public static void main(String[] args)
+    public static void main(String... args)
     {
-        // Creatinga an ArrayList without any type specified
-        ArrayList al = new ArrayList();
+        ArrayList al = new ArrayList();         // In case, without types
   
-        al.add("Sachin");
-        al.add("Rahul");
-        al.add(10); // Compiler allows this
+        al.add("Engine");
+        al.add("Brakes");
+        al.add(32);                             // In case, it's allow
   
-        String s1 = (String)al.get(0);
-        String s2 = (String)al.get(1);
+        String s1 = (String) al.get(0);         // Output: Engine
+        String s2 = (String) al.get(1);         // Output: Brakes
   
-        // Causes Runtime Exception
-        String s3 = (String)al.get(2);  // Output: Exception in thread "main" java.lang.ClassCastException: 
-  // java.lang.Integer cannot be cast to java.lang.String
-   // at Test.main(Test.java:19)
+        String s3 = (String) al.get(2);         // ERROR: Cast Exception!!!
     }
 }
 ```
@@ -209,22 +204,18 @@ import java.util.*;
   
 class Test
 {
-    public static void main(String[] args)
+    public static void main(String... args)
     {
-        // Creating a an ArrayList with String specified
-        ArrayList <String> al = new ArrayList<String> ();
+        ArrayList <String> al = 
+                    new ArrayList<>();          // In case, generic
   
-        al.add("Sachin");
-        al.add("Rahul");
-  
-        // Now Compiler doesn't allow this
-        al.add(10);     //Output: 15: error: no suitable method found for add(int)
-       // al.add(10); 
-        //  ^
-  
-        String s1 = (String)al.get(0);
-        String s2 = (String)al.get(1);
-        String s3 = (String)al.get(2);
+        al.add("Engine");
+        al.add("Brakes");
+        al.add(10);                             // In case, it doesn't allow
+                                                // ERROR: no suitable method!!!
+        String s1 = (String) al.get(0);
+        String s2 = (String) al.get(1);
+        String s3 = (String) al.get(2);
     }
 }
 ```
@@ -239,15 +230,13 @@ class Test
 {
     public static void main(String[] args)
     {
-        // Creating a an ArrayList with String specified
         ArrayList <String> al = new ArrayList<String> ();
   
-        al.add("Sachin");
-        al.add("Rahul");
+        al.add("Engine");
+        al.add("Brakes");
   
-        // Typecasting is not needed 
-        String s1 = al.get(0);
-        String s2 = al.get(1);
+        String s1 = al.get(0);                  // Casting isn't needed
+        String s2 = al.get(1);                  // Casting isn't needed
     }
 }
 ```
@@ -262,7 +251,7 @@ import java.util.List;
 
 public class Generics
 {
-    public static void main(String... args)
+    public static void main(String... args)                         // DRIVER
     {
         String  downCastMsg = "DOWN-CAST",
                 genericMsg  = "GENERICS",
@@ -315,52 +304,93 @@ public class Generics
             String carSP = carSPs.get(i);
 
             if(i == 0)
-                System.out.println(header + "- " + carSP);          // Output: Engine
+                System.out.println(header + "- " + carSP.print());  // Output: Engine
             else
-                System.out.println("- " + carSP);                   // Output: Engine, Tires, ... etc.
+                System.out.println("- " + carSP.print());           // Output: Engine, Tires, ... etc.
         }
     }
 }
 
-// GENERIC CLASS (Adjustable)                                       // GENERIC CLASS AFTER COMPILING:
-class Vehicle <T>                                                   //class Vehicle
-{                                                                   //{
-    T t;                                                            //    Object object;
-                                                                    //
-    public T getType()                                              //    public Object getType()
-    {                                                               //    }
-        return t;                                                   //        return object;
-    }                                                               //    }
-                                                                    //
-    public void setType(T t)                                        //    public void setType(Object Object)
-    {                                                               //    {
-        this.t = t;                                                 //        this.object = Object;
-    }                                                               //    }
-}                                                                   //}
 
-// GENERIC CLASS AFTER COMPILING:
-//class Vehicle
-//{
-//    Object object;
-//
-//    public Object getType()
-//    {
-//        return object;
-//    }
-//
-//    public void setType(Object Object)
-//    {
-//        this.object = Object;
-//    }
-//}
+class Vehicle <T>                                                   // GENERIC CLASS (Adjustable)
+{
+    T obj;
+    
+    Vehicle ()                                                      // DEFAULT CONSTRUCTOR
+    {
+    }
 
+    Vehicle (T obj)                                                 // CONSTRUCTOR
+    {
+        this.obj = obj;
+    }
+
+    public T getObject()                                            // GENERIC METHOD
+    {
+        return this.obj;
+    }
+
+    public T getType()                                              // GENERIC METHOD
+    {
+        return obj;
+    }
+
+    public void setType(T obj)                                      // GENERIC METHOD
+    {
+        this.obj = obj;
+    }
+
+    public void print()                                              // GENERIC METHOD
+    {
+        System.out.println(obj);
+    }
+}
 ```
 
+> *NOTE:* After compiling, all the generics will be deleted !!!
+
+#### Generic class after compiling:
+```java
+// GENERIC CLASS AFTER COMPILING:
+class Vehicle
+{
+    Object object;
+
+    Vehicle ()
+    {
+    }
+
+    Vehicle (Object object)
+    {
+        this.object = object;
+    }
+
+    public Object getObject()
+    {
+        return this.object;
+    }
+
+    public Object getType()
+    {
+        return object;
+    }
+
+    public void setType(Object Object)
+    {
+        this.object = object;
+    }
+
+    public void print()
+    {
+        System.out.println(object);
+    }
+}
+
+```
+---
 <!--
 * [templates in C++][1]
 -->
 
 [1]: http://geeksquiz.com/templates-cpp/
-
----
 <br/>
