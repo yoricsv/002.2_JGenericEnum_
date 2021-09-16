@@ -340,7 +340,7 @@ class Vehicle <T>                                                   // GENERIC C
         this.obj = obj;
     }
 
-    public void print()                                              // GENERIC METHOD
+    public void print()                                              // METHOD
     {
         System.out.println(obj);
     }
